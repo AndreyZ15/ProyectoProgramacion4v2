@@ -28,34 +28,24 @@
                 <a class="navbar-brand" href="/">
                     <i class="fas fa-globe-americas me-2"></i>TravelExperts
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/packages">Paquetes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/destinations">Destinos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/about">Nosotros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/news">Noticias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contacto</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link active" href="/">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/packages">Paquetes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/destinations">Destinos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/news">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
                     </ul>
-                    <div class="ms-lg-3" id="auth-buttons">
-                        <a href="#" class="btn btn-outline-primary me-2" id="login-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a>
-                        <a href="#" class="btn btn-primary" id="signup-btn" data-bs-toggle="modal" data-bs-target="#signupModal">Registrarse</a>
-                        <div id="user-info" class="d-none">
+                    <div class="ms-lg-3 d-flex align-items-center">
+                        <div id="auth-buttons">
+                            <a href="#" class="btn btn-outline-primary me-2" id="login-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a>
+                            <a href="#" class="btn btn-primary" id="signup-btn" data-bs-toggle="modal" data-bs-target="#signupModal">Registrarse</a>
+                        </div>
+                        <div id="user-info" class="d-none ms-2">
                             <span id="user-name" class="me-2"></span>
                             <button class="btn btn-outline-danger" id="logout-btn">Cerrar Sesión</button>
                             <button class="btn btn-success ms-2" id="add-package-btn" data-bs-toggle="modal" data-bs-target="#addPackageModal" style="display: none;">Agregar Paquete</button>

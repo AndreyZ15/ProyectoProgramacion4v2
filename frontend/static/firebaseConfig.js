@@ -9,11 +9,25 @@ const firebaseConfig = {
     appId: "1:859613674108:web:117be6be0e18918b7ae7f9"
 };
 
-// Inicializar Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore(app);
-const auth = firebase.auth(app);
 
-// Definir auth y db como variables globales para que script.js pueda usarlas
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Exportar auth y db para usar en otros scripts
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// Configurar la persistencia de la sesión a SESSION
+auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    .then(() => {
+        console.log("Persistencia de sesión configurada a SESSION");
+    })
+    .catch((error) => {
+        console.error("Error al configurar la persistencia de sesión:", error);
+    });
+
+// Hacer que auth y db estén disponibles globalmente
 window.auth = auth;
 window.db = db;
+
+console.log("Firebase inicializado correctamente");

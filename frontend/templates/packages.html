@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paquetes Turísticos - TravelExperts</title>
+    <title>Paquetes - TravelExperts</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,9 +13,6 @@
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- FullCalendar CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/static/styles.css">
@@ -53,11 +50,12 @@
                         </li>
                     </ul>
                     <div class="ms-lg-3" id="auth-buttons">
-                        <a href="#" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">Registrarse</a>
+                        <a href="#" class="btn btn-outline-primary me-2" id="login-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a>
+                        <a href="#" class="btn btn-primary" id="signup-btn" data-bs-toggle="modal" data-bs-target="#signupModal">Registrarse</a>
                         <div id="user-info" class="d-none">
                             <span id="user-name" class="me-2"></span>
                             <button class="btn btn-outline-danger" id="logout-btn">Cerrar Sesión</button>
+                            <button class="btn btn-success ms-2" id="add-package-btn" data-bs-toggle="modal" data-bs-target="#addPackageModal" style="display: none;">Agregar Paquete</button>
                         </div>
                     </div>
                 </div>
@@ -113,6 +111,7 @@
                             <select class="form-select" id="userRole">
                                 <option value="client_normal">Cliente Normal</option>
                                 <option value="client_vip">Cliente VIP</option>
+                                <option value="admin">Administrador</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Registrarse</button>
@@ -122,13 +121,41 @@
         </div>
     </div>
 
-    <!-- Packages Section -->
-    <section class="py-5" id="packages">
+    <!-- Add Package Modal -->
+    <div class="modal fade" id="addPackageModal" tabindex="-1" aria-labelledby="addPackageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPackageModalLabel">Agregar Paquete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPackageForm">
+                        <div class="mb-3">
+                            <label for="packageName" class="form-label">Nombre del Paquete</label>
+                            <input type="text" class="form-control" id="packageName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="packageDescription" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="packageDescription" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="packagePrice" class="form-label">Precio</label>
+                            <input type="number" class="form-control" id="packagePrice" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Agregar Paquete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="py-5">
         <div class="container">
-            <h2 class="section-title">Paquetes Destacados</h2>
-            <div id="packages-container" class="row"></div>
-            <div class="text-center mt-4">
-                <a href="#" class="btn btn-primary btn-lg">Ver más paquetes</a>
+            <h1 class="text-center mb-5">Nuestros Paquetes de Viaje</h1>
+            <div class="row" id="packages-container">
+                <!-- Paquetes se cargarán dinámicamente aquí -->
             </div>
         </div>
     </section>
@@ -173,36 +200,29 @@
                     <div class="footer-contact">
                         <p><i class="fas fa-map-marker-alt"></i> Av. Central #123, Ciudad</p>
                         <p><i class="fas fa-phone"></i> +1 234-567-8900</p>
-                        <p><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0d64636b624d797f6c7b686168757d687f797e236e6260">[email&#160;protected]</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@travelexperts.com">info@travelexperts.com</a></p>
                         <p><i class="fas fa-clock"></i> Lunes a Viernes: 9am a 6pm</p>
                     </div>
                 </div>
             </div>
             <div class="copyright">
-                <p>© 2023 TravelExperts. Todos los derechos reservados.</p>
+                <p>© 2025 TravelExperts. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Floating Action Button -->
-    <div class="floating-btn" id="chat-btn">
-        <i class="fas fa-comments"></i>
-    </div>
-
     <!-- Firebase SDK -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    
+    <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Config -->
+    <script defer src="/static/firebaseConfig.js"></script>
+
+    <!-- Custom JS -->
+    <script type="module" src="/static/script.js"></script>
+
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- FullCalendar JS -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-    
-    <!-- Firebase Config -->
-    <script type="module" src="../../backend/firebaseConfig.js"></script>
-    
-    <script type="module" src="../static/script.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9361fa7f5ec97ba6',t:'MTc0NTYyNzQ5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
