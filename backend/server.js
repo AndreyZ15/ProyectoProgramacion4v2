@@ -1,79 +1,4 @@
-// Ruta para agregar noticias
-app.post('/api/news', async (req, res) => {
-    try {
-        const { title, content } = req.body;
-        const newsData = {
-            title,
-            content,
-            date: admin.firestore.FieldValue.serverTimestamp()
-        };
-        const newsRef = await db.collection('news').add(newsData);
-
-        const vipUsersSnapshot = await db.collection('users').where('role', '==', 'client_vip').get();
-        const vipEmails = vipUsersSnapshot.docs.map(doc => doc.data().email);
-
-        if (vipEmails.length > 0) {
-            const mailOptions = {
-                from: process.env.EMAIL_SENDER,
-                to: vipEmails,
-                subject: `New Travel News: ${title}`,
-                text: `A new article has been published: ${title}. Check it out now!`
-            };
-            await transporter.sendMail(mailOptions);
-        }
-
-        res.status(201).json({ message: 'News added successfully', id: newsRef.id });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Ruta para listar noticias
-app.get('/api/news', async (req, res) => {
-    try {
-        const snapshot = await db.collection('news').get();
-        const news = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        res.json(news);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Ruta para agregar comentarios
-app.post('/api/comments', async (req, res) => {
-    try {
-        const { userId, packageId, comment, rating } = req.body;
-        const commentData = {
-            userId,
-            packageId,
-            comment,
-            rating: Number(rating),
-            date: admin.firestore.FieldValue.serverTimestamp()
-        };
-        const commentRef = await db.collection('comments').add(commentData);
-        res.status(201).json({ message: 'Comment added successfully', id: commentRef.id });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Ruta para listar comentarios
-app.get('/api/comments/:packageId', async (req, res) => {
-    try {
-        const packageId = req.params.packageId;
-        const snapshot = await db.collection('comments').where('packageId', '==', packageId).get();
-        const comments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        res.json(comments);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Inicia el servidor
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});const express = require('express');
+const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
 const dotenv = require('dotenv');
@@ -345,4 +270,80 @@ app.post('/api/payment', (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
+});
+// Ruta para agregar noticias
+app.post('/api/news', async (req, res) => {
+    try {
+        const { title, content } = req.body;
+        const newsData = {
+            title,
+            content,
+            date: admin.firestore.FieldValue.serverTimestamp()
+        };
+        const newsRef = await db.collection('news').add(newsData);
+
+        const vipUsersSnapshot = await db.collection('users').where('role', '==', 'client_vip').get();
+        const vipEmails = vipUsersSnapshot.docs.map(doc => doc.data().email);
+
+        if (vipEmails.length > 0) {
+            const mailOptions = {
+                from: process.env.EMAIL_SENDER,
+                to: vipEmails,
+                subject: `New Travel News: ${title}`,
+                text: `A new article has been published: ${title}. Check it out now!`
+            };
+            await transporter.sendMail(mailOptions);
+        }
+
+        res.status(201).json({ message: 'News added successfully', id: newsRef.id });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Ruta para listar noticias
+app.get('/api/news', async (req, res) => {
+    try {
+        const snapshot = await db.collection('news').get();
+        const news = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.json(news);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Ruta para agregar comentarios
+app.post('/api/comments', async (req, res) => {
+    try {
+        const { userId, packageId, comment, rating } = req.body;
+        const commentData = {
+            userId,
+            packageId,
+            comment,
+            rating: Number(rating),
+            date: admin.firestore.FieldValue.serverTimestamp()
+        };
+        const commentRef = await db.collection('comments').add(commentData);
+        res.status(201).json({ message: 'Comment added successfully', id: commentRef.id });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Ruta para listar comentarios
+app.get('/api/comments/:packageId', async (req, res) => {
+    try {
+        const packageId = req.params.packageId;
+        const snapshot = await db.collection('comments').where('packageId', '==', packageId).get();
+        const comments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.json(comments);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Inicia el servidor
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
