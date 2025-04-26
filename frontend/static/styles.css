@@ -261,3 +261,54 @@ footer {
         height: 60vh;
     }
 }
+
+/* Ajustar el margen superior de la sección para evitar que se superponga con la navbar fija */
+#packages {
+    margin-top: 80px; /* Ajusta según la altura de tu navbar */
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Asegurar que el contenedor de paquetes sea completamente visible */
+#packages-container {
+    min-height: 50vh; /* Asegura que haya suficiente espacio para los paquetes */
+}
+
+/* Ajustar el diseño responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    #packages {
+        margin-top: 60px; /* Reducir el margen en pantallas pequeñas */
+    }
+
+    #packages-container {
+        min-height: 40vh;
+    }
+}
+
+/* Estilo para el formulario dentro del modal addPackageModal */
+#addPackageModal .modal-body {
+    padding: 20px;
+}
+
+#addPackageModal .form-label {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+#addPackageModal .form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+#addPackageModal .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.2);
+}
+
+#addPackageModal .text-end {
+    margin-top: 20px;
+}
+
+#addPackageModal .btn-secondary {
+    margin-right: 10px;
+}
