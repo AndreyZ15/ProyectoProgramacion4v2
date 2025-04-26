@@ -340,3 +340,436 @@ footer {
 #comments-section .border-bottom:last-child {
     border-bottom: none;
 }
+
+/* Estilos para el sistema de reservas */
+
+/* Personalizar el calendario */
+#calendar {
+    height: 350px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para la fecha seleccionada */
+.fc-day-today {
+    background-color: rgba(0, 123, 255, 0.1) !important;
+}
+
+.fc-event {
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+/* Mejorar apariencia de las tarjetas */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    padding: 15px;
+    font-weight: 600;
+}
+
+/* Mejorar formularios */
+.form-control, .form-select {
+    border-radius: 6px;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+input[readonly] {
+    background-color: #f8f9fa;
+}
+
+/* Botones */
+.btn {
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Modal */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-radius: 10px 10px 0 0;
+    padding: 15px 20px;
+}
+
+/* Spinner para carga */
+.spinner-border {
+    margin-right: 5px;
+}
+
+/* Estilos para imágenes de paquetes */
+#package-image {
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Información de paquete */
+#selected-package-details {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    margin-top: 15px;
+}
+
+/* Responsividad para dispositivos móviles */
+@media (max-width: 768px) {
+    #calendar {
+        height: 300px;
+    }
+    
+    .fc-header-toolbar {
+        flex-direction: column;
+    }
+    
+    .fc-toolbar-chunk {
+        margin-bottom: 10px;
+    }
+    
+    .card {
+        margin-bottom: 20px;
+    }
+}
+
+/* Destinations Page Specific Styles */
+.destinations-section {
+    background-color: #f8f9fa;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.destinations-section h1 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.destinations-section .lead {
+    color: #6c757d;
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+.destination-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 450px; /* Increased height for more content space */
+    display: flex;
+    flex-direction: column;
+}
+
+.destination-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.destination-card img {
+    width: 100%;
+    height: 300px; /* Increased image height */
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.destination-card:hover img {
+    transform: scale(1.1);
+}
+
+.destination-details {
+    padding: 20px;
+    background-color: white;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.destination-details h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.destination-details p {
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.destination-details .btn {
+    align-self: flex-start;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .destinations-section {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .destination-card {
+        height: auto;
+        margin-bottom: 30px;
+    }
+
+    .destination-card img {
+        height: 250px;
+    }
+}
+
+
+
+/* About Us Section Styles */
+.about-us-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.about-content {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.about-content:hover {
+    transform: translateY(-10px);
+}
+
+.achievement-icon {
+    transition: transform 0.3s ease;
+}
+
+.achievement-icon:hover {
+    transform: scale(1.1);
+}
+
+.about-image-container {
+    perspective: 1000px;
+}
+
+.image-wrapper {
+    transition: transform 0.3s ease;
+}
+
+.about-image-container:hover .image-wrapper {
+    transform: rotateY(-5deg) scale(1.05);
+}
+
+.image-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.about-image-container:hover .image-overlay {
+    opacity: 1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .about-content,
+    .about-image-container {
+        margin-bottom: 20px;
+    }
+    
+    .achievements .col-4 {
+        margin-bottom: 15px;
+    }
+}
+.destinations-section {
+    padding-top: 150px; /* Increased top padding */
+    padding-bottom: 100px;
+    background-color: #f8f9fa;
+}
+
+@media (max-width: 992px) {
+    .destinations-section {
+        padding-top: 120px; /* Slightly less padding on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .destinations-section {
+        padding-top: 100px; /* Even less padding on mobile */
+    }
+}
+
+.destinations-section h1.display-4 {
+    margin-top: 2rem; /* Additional margin at the top */
+    margin-bottom: 1.5rem;
+}
+
+.destination-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 450px; /* Fixed height for consistent card size */
+    display: flex;
+    flex-direction: column;
+}
+
+.destination-card img {
+    width: 100%;
+    height: 300px; /* Fixed height for all images */
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    object-position: center; /* Centers the image */
+    transition: transform 0.4s ease;
+}
+
+.destination-card:hover img {
+    transform: scale(1.1);
+}
+
+.destination-details {
+    padding: 20px;
+    background-color: white;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    text-align: center; /* Centers text */
+}
+
+.destination-details h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.destination-details p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .destination-card {
+        height: auto;
+        margin-bottom: 30px;
+    }
+
+    .destination-card img {
+        height: 250px;
+    }
+}
+.destination-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 400px; /* Reduced overall height */
+    display: flex;
+    flex-direction: column;
+}
+
+.destination-card img {
+    width: 100%;
+    height: 250px; /* Reduced image height */
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.destination-card:hover img {
+    transform: scale(1.1);
+}
+
+.destination-details {
+    padding: 15px;
+    background-color: white;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.destination-details h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.destination-details p {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .destination-card {
+        height: 350px;
+        margin-bottom: 20px;
+    }
+
+    .destination-card img {
+        height: 200px;
+    }
+}
+
+.destinations-section {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    background-color: #f8f9fa;
+}
+
+.destinations-section h1.display-4 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.destinations-section .lead {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: #6c757d;
+}

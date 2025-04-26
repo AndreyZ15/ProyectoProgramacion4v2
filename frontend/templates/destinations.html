@@ -25,160 +25,132 @@
                 <a class="navbar-brand" href="/">
                     <i class="fas fa-globe-americas me-2"></i>TravelExperts
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/packages">Paquetes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/destinations">Destinos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/about">Nosotros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/news(Book)">Noticias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contacto</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/packages">Paquetes</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="/destinations">Destinos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/news">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
                     </ul>
                     <div class="ms-lg-3" id="auth-buttons">
                         <a href="#" class="btn btn-outline-primary me-2" id="login-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a>
                         <a href="#" class="btn btn-primary" id="signup-btn" data-bs-toggle="modal" data-bs-target="#signupModal">Registrarse</a>
-                        <div id="user-info" class="d-none">
-                            <span id="user-name" class="me-2"></span>
-                            <button class="btn btn-outline-danger" id="logout-btn">Cerrar Sesión</button>
-                            <button class="btn btn-success ms-2" id="add-package-btn" data-bs-toggle="modal" data-bs-target="#addPackageModal" style="display: none;">Agregar Paquete</button>
-                        </div>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <label for="loginEmail" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="loginEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="loginPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="loginPassword" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Modals (Login, Signup, etc.) - Keep the previous modals from the original HTML -->
 
-    <!-- Signup Modal -->
-    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="signupModalLabel">Registrarse</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="signupForm">
-                        <div class="mb-3">
-                            <label for="signupEmail" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="signupEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="signupPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="signupPassword" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="userRole" class="form-label">Tipo de usuario</label>
-                            <select class="form-select" id="userRole">
-                                <option value="client_normal">Cliente Normal</option>
-                                <option value="client_vip">Cliente VIP</option>
-                                <option value="admin">Administrador</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Package Modal -->
-    <div class="modal fade" id="addPackageModal" tabindex="-1" aria-labelledby="addPackageModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addPackageModalLabel">Agregar Paquete</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addPackageForm">
-                        <div class="mb-3">
-                            <label for="packageName" class="form-label">Nombre del Paquete</label>
-                            <input type="text" class="form-control" id="packageName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="packageDescription" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="packageDescription" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="packagePrice" class="form-label">Precio</label>
-                            <input type="number" class="form-control" id="packagePrice" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Agregar Paquete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <section class="py-5">
-        <div class="container">
-            <h1 class="text-center mb-5">Destinos Populares</h1>
+    <!-- Destinations Section -->
+    <section class="destinations-section py-5">
+        <div class="container-fluid px-5">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-12">
+                    <h1 class="display-4 text-center mb-5">Nuestros Destinos Increíbles</h1>
+                    <p class="lead text-center mb-5 px-md-5">Explora los destinos más fascinantes del mundo. Cada lugar tiene una historia única para contar y una experiencia inolvidable para ofrecerte.</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <!-- First Row of Destinations -->
+                <div class="col-md-4 mb-4">
                     <div class="destination-card">
-                        <img src="https://source.unsplash.com/random/600x400/?cancun,beach" alt="Cancún, México">
+                        <img src="https://www.barcelo.com/guia-turismo/wp-content/uploads/2024/09/ok-cancun.jpg" alt="Cancún, México">
                         <div class="destination-details">
                             <h3>Cancún, México</h3>
                             <p>Playas de arena blanca y aguas cristalinas te esperan.</p>
+                           
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     <div class="destination-card">
-                        <img src="https://source.unsplash.com/random/600x400/?paris" alt="París, Francia">
+                        <img src="https://img.static-af.com/transform/45cb9a13-b167-4842-8ea8-05d0cc7a4d04/" alt="París, Francia">
                         <div class="destination-details">
                             <h3>París, Francia</h3>
                             <p>La ciudad del amor, con su icónica Torre Eiffel.</p>
+                          +
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     <div class="destination-card">
-                        <img src="https://source.unsplash.com/random/600x400/?tokyo" alt="Tokyo, Japón">
+                        <img src="https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_3840,h_1920,g_auto/dpr_auto/f_auto/q_auto:eco/v1/gettyimages-1390815938?_a=BAVAZGDX0" alt="Tokyo, Japón">
                         <div class="destination-details">
                             <h3>Tokyo, Japón</h3>
                             <p>Una mezcla única de tradición y modernidad.</p>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Row of Destinations -->
+                <div class="col-md-4 mb-4">
+                    <div class="destination-card">
+                        <img src="https://media.iatiseguros.com/wp-content/uploads/2018/05/04005529/bali-que-hacer-Templo-Ulun-Danu.jpg" alt="Bali, Indonesia">
+                        <div class="destination-details">
+                            <h3>Bali, Indonesia</h3>
+                            <p>Paisajes tropicales y cultura espiritual única.</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="destination-card">
+                        <img src="https://nyc.eu/wp-content/uploads/2015/07/New_York_City-scaled.jpg" alt="Nueva York, USA">
+                        <div class="destination-details">
+                            <h3>Nueva York, USA</h3>
+                            <p>La ciudad que nunca duerme, llena de energía y cultura.</p>
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="destination-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Sydney_Opera_House_-_Dec_2008.jpg/1200px-Sydney_Opera_House_-_Dec_2008.jpg" alt="Sydney, Australia">
+                        <div class="destination-details">
+                            <h3>Sydney, Australia</h3>
+                            <p>Moderna ciudad costera con paisajes impresionantes.</p>
+                          
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third Row of Destinations -->
+                <div class="col-md-4 mb-4">
+                    <div class="destination-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Machu_Picchu%2C_Peru_%282018%29.jpg" alt="Machu Picchu, Perú">
+                        <div class="destination-details">
+                            <h3>Machu Picchu, Perú</h3>
+                            <p>Antigua ciudad inca con vistas panorámicas impresionantes.</p>
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="destination-card">
+                        <img src="https://res.cloudinary.com/manawa/image/private/s--rKndJJg8--/v1724939568/uy2qidhrbntj85537glz.jpg" alt="Santorini, Grecia">
+                        <div class="destination-details">
+                            <h3>Santorini, Grecia</h3>
+                            <p>Islas con arquitectura blanca y vistas al mar Egeo.</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="destination-card">
+                        <img src="https://pro-api.descapada.com/storage/escapades_imagenes/aQwWmcx1fWfNxcAyaIa22iwiNX3ygVS2M7SgRRCD.jpg" alt="Safari en Kenia">
+                        <div class="destination-details">
+                            <h3>Safari en Kenia</h3>
+                            <p>Vida salvaje africana en su estado más puro.</p>
+                        
                         </div>
                     </div>
                 </div>
@@ -186,7 +158,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <<!-- Footer -->
     <footer id="contact">
         <div class="container">
             <div class="row">
@@ -206,6 +178,7 @@
                         <li><a href="/">Inicio</a></li>
                         <li><a href="/packages">Paquetes</a></li>
                         <li><a href="/destinations">Destinos</a></li>
+                        <li><a href="/booking">Reservas</a></li>
                         <li><a href="/about">Nosotros</a></li>
                         <li><a href="/news">Noticias</a></li>
                         <li><a href="#contact">Contacto</a></li>
@@ -224,9 +197,9 @@
                 <div class="col-lg-4 col-md-4 mb-4">
                     <h3 class="footer-title">Contacto</h3>
                     <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> Av. Central #123, Ciudad</p>
-                        <p><i class="fas fa-phone"></i> +1 234-567-8900</p>
-                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@travelexperts.com">info@travelexperts.com</a></p>
+                        <p><i class="fas fa-map-marker-alt"></i> Grecia, Costa Rica</p>
+                        <p><i class="fas fa-phone"></i> +506 2255-9636 </p>
+                        <p><i class="fas fa-envelope"></i> info@travelexperts.com</p>
                         <p><i class="fas fa-clock"></i> Lunes a Viernes: 9am a 6pm</p>
                     </div>
                 </div>
@@ -237,18 +210,24 @@
         </div>
     </footer>
 
+    <!-- Floating Action Button -->
+    <div class="floating-btn" id="chat-btn">
+        <i class="fas fa-comments"></i>
+    </div>
+
     <!-- Firebase SDK -->
-    <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
     <!-- Firebase Config -->
-    <script defer src="/static/firebaseConfig.js"></script>
-
-    <!-- Custom JS -->
-    <script type="module" src="/static/script.js"></script>
-
+    <script src="/static/firebaseConfig.js"></script>
+    
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="/static/script.js"></script>
+    <script src="/static/index.js"></script>
 </body>
 </html>
