@@ -49,86 +49,19 @@
                             <a class="nav-link" href="#contact">Contacto</a>
                         </li>
                     </ul>
-                    <div class="ms-lg-3 d-flex align-items-center">
-                        <div id="auth-buttons">
-                            <a href="#" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a>
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">Registrarse</a>
-                        </div>
-                        <div id="user-info" class="d-none ms-2">
-                            <span id="user-name" class="me-2"></span>
-                            <button class="btn btn-outline-danger" id="logout-btn">Cerrar Sesión</button>
-                            <!-- Botón de agregar paquete eliminado para packages.html -->
-                        </div>
-                    </div>
                 </div>
             </div>
         </nav>
     </header>
-
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <label for="loginEmail" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="loginEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="loginPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="loginPassword" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Signup Modal -->
-    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="signupModalLabel">Registrarse</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="signupForm">
-                        <div class="mb-3">
-                            <label for="signupEmail" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="signupEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="signupPassword" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="signupPassword" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="userRole" class="form-label">Tipo de usuario</label>
-                            <select class="form-select" id="userRole">
-                                <option value="client_normal">Cliente Normal</option>
-                                <option value="client_vip">Cliente VIP</option>
-                                <option value="admin">Administrador</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Packages Section -->
     <section class="py-5 mt-5" id="packages">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="section-title">Paquetes Turísticos</h2>
-                <!-- Botón de agregar paquete eliminado -->
+                <button id="add-package-btn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPackageModal">
+                    <i class="fas fa-plus me-2"></i>Agregar Paquete
+                </button>
             </div>
             
             <!-- Filtros -->
@@ -136,7 +69,7 @@
                 <div class="col-md-8">
                     <div class="input-group">
                         <input type="text" id="search-packages" class="form-control" placeholder="Buscar paquetes...">
-                        <button class="btn btn-primary" type="button" onclick="applyFilters()">
+                        <button class="btn btn-primary" type="button" id="search-packages-btn">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -145,14 +78,23 @@
                     <select class="form-select" id="sort-packages">
                         <option value="price-asc">Precio: Menor a Mayor</option>
                         <option value="price-desc">Precio: Mayor a Menor</option>
-                        <option value="name-asc">Nombre: A-Z</option>
-                        <option value="name-desc">Nombre: Z-A</option>
+                        <option value="title-asc">Título: A-Z</option>
+                        <option value="title-desc">Título: Z-A</option>
                     </select>
                 </div>
             </div>
             
+            <!-- Categorías de paquetes -->
+            <div class="package-categories mb-4">
+                <button class="btn btn-outline-primary active me-2 mb-2" data-category="all">Todos</button>
+                <button class="btn btn-outline-primary me-2 mb-2" data-category="playa">Playa</button>
+                <button class="btn btn-outline-primary me-2 mb-2" data-category="montaña">Montaña</button>
+                <button class="btn btn-outline-primary me-2 mb-2" data-category="ciudad">Ciudad</button>
+                <button class="btn btn-outline-primary me-2 mb-2" data-category="aventura">Aventura</button>
+            </div>
+            
             <!-- Contenedor de paquetes -->
-            <div id="packages-container" class="row g-4"></div>
+            <div id="packages-container" class="row"></div>
             
             <!-- Loading indicator -->
             <div id="loading-packages" class="text-center py-5">
@@ -164,7 +106,7 @@
             
             <!-- No packages message -->
             <div id="no-packages-message" class="text-center py-5" style="display: none;">
-                <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                <i class="fas fa-suitcase fa-3x text-muted mb-3"></i>
                 <h4>No se encontraron paquetes</h4>
                 <p>No hay paquetes disponibles en este momento.</p>
             </div>
@@ -182,39 +124,182 @@
                 <div class="modal-body">
                     <form id="addPackageForm">
                         <div class="mb-3">
-                            <label for="packageName" class="form-label">Nombre del Paquete</label>
-                            <input type="text" class="form-control" id="packageName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="packageDestination" class="form-label">Destino</label>
-                            <input type="text" class="form-control" id="packageDestination" required>
+                            <label for="packageTitle" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="packageTitle" required>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="packagePrice" class="form-label">Precio (USD)</label>
-                                <input type="number" class="form-control" id="packagePrice" min="0" step="0.01" required>
+                                <label for="packageCategory" class="form-label">Categoría</label>
+                                <select class="form-select" id="packageCategory" required>
+                                    <option value="">Seleccionar categoría</option>
+                                    <option value="playa">Playa</option>
+                                    <option value="montaña">Montaña</option>
+                                    <option value="ciudad">Ciudad</option>
+                                    <option value="aventura">Aventura</option>
+                                </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="packageDuration" class="form-label">Duración (días)</label>
-                                <input type="number" class="form-control" id="packageDuration" min="1" required>
+                                <label for="packagePrice" class="form-label">Precio (USD)</label>
+                                <input type="number" class="form-control" id="packagePrice" required>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="packageDescription" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="packageDescription" rows="4" required></textarea>
+                            <label for="packageSummary" class="form-label">Resumen</label>
+                            <textarea class="form-control" id="packageSummary" rows="2" required></textarea>
+                            <small class="text-muted">Breve descripción que aparecerá en la vista previa</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="packageContent" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="packageContent" rows="6" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="packageImage" class="form-label">URL de Imagen</label>
                             <input type="url" class="form-control" id="packageImage" placeholder="https://ejemplo.com/imagen.jpg">
                             <small class="text-muted">Ingresa la URL de una imagen representativa del paquete</small>
                         </div>
-                        <div class="mb-3">
-                            <label for="packageIncludes" class="form-label">¿Qué incluye?</label>
-                            <textarea class="form-control" id="packageIncludes" rows="3" placeholder="Hospedaje, Desayunos, Traslados, etc."></textarea>
-                        </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Package Modal -->
+    <div class="modal fade" id="editPackageModal" tabindex="-1" aria-labelledby="editPackageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPackageModalLabel">Editar Paquete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPackageForm">
+                        <div class="mb-3">
+                            <label for="editPackageTitle" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="editPackageTitle" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editPackageCategory" class="form-label">Categoría</label>
+                                <select class="form-select" id="editPackageCategory" required>
+                                    <option value="">Seleccionar categoría</option>
+                                    <option value="playa">Playa</option>
+                                    <option value="montaña">Montaña</option>
+                                    <option value="ciudad">Ciudad</option>
+                                    <option value="aventura">Aventura</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editPackagePrice" class="form-label">Precio (USD)</label>
+                                <input type="number" class="form-control" id="editPackagePrice" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPackageSummary" class="form-label">Resumen</label>
+                            <textarea class="form-control" id="editPackageSummary" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPackageContent" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="editPackageContent" rows="6" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPackageImage" class="form-label">URL de Imagen</label>
+                            <input type="url" class="form-control" id="editPackageImage">
+                        </div>
+                        <input type="hidden" id="editPackageId" value="">
+                        <div class="text-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Package Confirmation Modal -->
+    <div class="modal fade" id="deletePackageModal" tabindex="-1" aria-labelledby="deletePackageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePackageModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar el paquete <strong id="packageToDelete"></strong>?</p>
+                    <p class="text-danger">Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeletePackageBtn">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Package Detail Modal -->
+    <div class="modal fade" id="packageDetailModal" tabindex="-1" aria-labelledby="packageDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="packageDetailModalLabel">Detalles del Paquete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="packageDetailContent">
+                        <!-- El contenido del paquete se cargará dinámicamente aquí -->
+                    </div>
+                    <!-- Botón para agregar comentario -->
+                    <div class="mt-4">
+                        <button id="add-comment-btn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCommentModal">
+                            <i class="fas fa-comment me-2"></i>Agregar Comentario
+                        </button>
+                    </div>
+                    <!-- Contenedor de comentarios -->
+                    <div id="comments-section" class="mt-4">
+                        <h5>Comentarios y Reseñas</h5>
+                        <div id="comments-container"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Comment Modal -->
+    <div class="modal fade" id="addCommentModal" tabindex="-1" aria-labelledby="addCommentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCommentModalLabel">Agregar Comentario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCommentForm">
+                        <div class="mb-3">
+                            <label for="commentRating" class="form-label">Calificación</label>
+                            <div id="commentRating" class="star-rating">
+                                <i class="fas fa-star" data-value="1"></i>
+                                <i class="fas fa-star" data-value="2"></i>
+                                <i class="fas fa-star" data-value="3"></i>
+                                <i class="fas fa-star" data-value="4"></i>
+                                <i class="fas fa-star" data-value="5"></i>
+                            </div>
+                            <input type="hidden" id="commentRatingValue" value="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="commentText" class="form-label">Comentario</label>
+                            <textarea class="form-control" id="commentText" rows="4" required></textarea>
+                        </div>
+                        <input type="hidden" id="commentPackageId" value="">
+                        <div class="text-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
                         </div>
                     </form>
                 </div>
@@ -262,13 +347,13 @@
                     <div class="footer-contact">
                         <p><i class="fas fa-map-marker-alt"></i> Av. Central #123, Ciudad</p>
                         <p><i class="fas fa-phone"></i> +1 234-567-8900</p>
-                        <p><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cfa6a1a9a08fbbbdaeb9aaa3aab7bfaabdbbbce1aca0a2">[email&#160;protected]</a></p>
-                        <p><i class="fas fa-clock"></i> Lunes a Viernes:(delta) 9am a 6pm</p>
+                        <p><i class="fas fa-envelope"></i> info@travelexperts.com</p>
+                        <p><i class="fas fa-clock"></i> Lunes a Viernes: 9am a 6pm</p>
                     </div>
                 </div>
             </div>
             <div class="copyright">
-                <p>© 2025 TravelExperts. Todos los derechos reservados.</p>
+                <p>© 2023 TravelExperts. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
@@ -279,16 +364,18 @@
     </div>
 
     <!-- Firebase SDK -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Firebase Config y Scripts Personalizados -->
+    <!-- Firebase Config -->
     <script src="/static/firebaseConfig.js"></script>
+    
+    <!-- Custom JS -->
     <script src="/static/script.js"></script>
     <script src="/static/packages.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'936352771af4b0c4',t:'MTc0NTY0MTU4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

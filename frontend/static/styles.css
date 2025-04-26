@@ -312,3 +312,31 @@ footer {
 #addPackageModal .btn-secondary {
     margin-right: 10px;
 }
+
+/* Asegurar que las imágenes de las tarjetas tengan una altura uniforme */
+.package-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Estilos para las estrellas de calificación */
+.star-rating .fa-star {
+    font-size: 1.5rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating .fa-star.text-warning {
+    color: #f5c518;
+}
+
+/* Estilos para los comentarios */
+#comments-section {
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+}
+
+#comments-section .border-bottom:last-child {
+    border-bottom: none;
+}

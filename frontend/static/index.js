@@ -1,4 +1,4 @@
-// script.js - Funcionalidad global para autenticación y carga de paquetes
+// script.js - Funcionalidad global para autenticación
 
 // Depuración: Confirmar que el script se ejecuta
 console.log("script.js cargado");
@@ -106,9 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Cargar paquetes destacados al iniciar
-    loadPackages();
-
     // Función para manejar el inicio de sesión
     async function handleLogin(e) {
         e.preventDefault();
@@ -167,85 +164,4 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("Error: " + error.message);
         }
     }
-
-    // Funciones placeholder
-    window.searchPackages = function() {
-        alert("Función de búsqueda de paquetes no implementada aún.");
-    };
-
-    window.subscribeNewsletter = function() {
-        const email = document.getElementById("newsletter-email")?.value;
-        if (email) {
-            alert(`Suscripción exitosa para ${email}`);
-        } else {
-            alert("Por favor, ingresa un correo electrónico válido.");
-        }
-    };
-
-    // Función para cargar paquetes destacados desde Firestore
-    async function loadPackages() {
-        const packagesContainer = document.getElementById('packages-container');
-        const loadingPackages = document.getElementById('loading-packages');
-        const noPackagesMessage = document.getElementById('no-packages-message');
-
-        if (!packagesContainer || !loadingPackages || !noPackagesMessage) {
-            console.error("Elementos necesarios para cargar paquetes no encontrados en el DOM.");
-            return;
-        }
-
-        if (!window.db) {
-            console.error("Firestore no está disponible (window.db no definido).");
-            loadingPackages.style.display = 'none';
-            noPackagesMessage.style.display = 'block';
-            return;
-        }
-
-        try {
-            console.log("Cargando paquetes desde Firestore...");
-            const snapshot = await window.db.collection('packages')
-                .orderBy('createdAt', 'desc')
-                .limit(3) // Limitar a 3 paquetes destacados
-                .get();
-
-            loadingPackages.style.display = 'none';
-
-            if (snapshot.empty) {
-                console.log("No se encontraron paquetes en Firestore.");
-                noPackagesMessage.style.display = 'block';
-                return;
-            }
-
-            noPackagesMessage.style.display = 'none';
-
-            snapshot.forEach(doc => {
-                const packageData = doc.data();
-                console.log("Paquete encontrado:", packageData);
-
-                const packageCard = `
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            ${packageData.image ? `<img src="${packageData.image}" class="card-img-top" alt="${packageData.name}" style="height: 200px; object-fit: cover;">` : ''}
-                            <div class="card-body">
-                                <h5 class="card-title">${packageData.name}</h5>
-                                <p class="card-text"><strong>Destino:</strong> ${packageData.destination}</p>
-                                <p class="card-text"><strong>Precio:</strong> $${packageData.price.toFixed(2)} USD</p>
-                                <p class="card-text"><strong>Duración:</strong> ${packageData.duration} días</p>
-                                <p class="card-text">${packageData.description}</p>
-                                ${packageData.includes ? `<p class="card-text"><strong>Incluye:</strong> ${packageData.includes}</p>` : ''}
-                                <a href="/packages" class="btn btn-primary btn-sm">Ver Detalles</a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                packagesContainer.insertAdjacentHTML('beforeend', packageCard);
-            });
-        } catch (error) {
-            console.error("Error al cargar paquetes desde Firestore:", error);
-            loadingPackages.style.display = 'none';
-            noPackagesMessage.style.display = 'block';
-        }
-    }
-
-    // Hacer la función accesible globalmente
-    window.loadPackages = loadPackages;
 });
